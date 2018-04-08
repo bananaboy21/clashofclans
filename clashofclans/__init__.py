@@ -41,14 +41,14 @@ class Client:
         You should never call this function directly. Instead, use a specified endpoint.
         '''
         query = urllib.parse.quote(str(query))
-        async with self.session.get("{}{}{}".format(self.baseurl, endpoint, query), headers=self.headers) as resp:
+        async with self.session.get("{}{}%23{}".format(self.baseurl, endpoint, query), headers=self.headers) as resp:
             if resp.status != 200:
                 errors = {
-                    400: "Client provided incorrect parameters for the request."
-                    403: "Access denied, either because of missing/incorrect credentials or used API token does not grant access to the requested resource."
-                    404: "Resource was not found."
-                    429: "Request was throttled, because amount of requests was above the threshold defined for the used API token."
-                    500: "Unknown error happened when handling the request."
+                    400: "Client provided incorrect parameters for the request.",
+                    403: "Access denied, either because of missing/incorrect credentials or used API token does not grant access to the requested resource.",
+                    404: "Resource was not found.",
+                    429: "Request was throttled, because amount of requests was above the threshold defined for the used API token.",
+                    500: "Unknown error happened when handling the request.",
                     503: "Service is temprorarily unavailable because of maintenance."
                 }
                 raise CocError("An error occurred with Clash of Clans API. Error {}: {}".format(resp.status, errors[resp.status]))
