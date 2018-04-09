@@ -129,6 +129,19 @@ class Client:
         return data
 
 
+    async def get_warlog(self, query):
+        '''
+        Gets a list of a clan's war log.
+
+        ---Params---
+        query (str): The clans's clan tag.
+        Note that removing the '#' is optional, this wrapper does it for you.
+
+        This requests to the /clans/{clanTag}/warlog endpoint of the API.
+        '''
+        return await self._get("clans/%23", "{}{}".format(query.strip("#"), "/warlog"))
+
+
     async def get_clan_members(self, query):
         '''
         Gets a list of members in a COC clan, from the clan tag.
